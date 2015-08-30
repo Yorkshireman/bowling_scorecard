@@ -43,6 +43,44 @@ describe("Game", function() {
         });
       });
 
+      describe("when a spare is achieved", function() {
+        beforeEach(function() {
+          game.bowl(6);
+          game.bowl(4);
+        });
+
+        it("there is 1 frame left to play", function() {
+          expect(game.framesLeft).toEqual(1);
+        })
+
+        it("the game is on frame 11", function() {
+          expect(game.frame).toEqual(11);
+        })
+
+        it("there is 1 ball left to play", function() {
+          expect(game.bowlsLeftInFrame).toEqual(1);
+        })
+
+        it("the current finalScore is 10", function() {
+          expect(game.finalScore).toEqual(10);
+        })
+
+        describe("if the player then bowls an 8", function() {
+          beforeEach(function() {
+            game.bowl(8);
+          });
+
+          it("the final score is 18", function() {
+            expect(game.finalScore).toEqual(18);
+          })
+
+          it("cannot score anymore points", function() {
+            game.bowl(3);
+            expect(game.finalScore).toEqual(18);
+          });
+        });
+      });
+
       describe("when first ball bowls a strike", function() {
         beforeEach(function() {
           game.bowl(10);
