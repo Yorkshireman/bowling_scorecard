@@ -8,7 +8,7 @@ var Game = function() {
 
 Game.prototype.bowl = function(numberOfPinsKnockedDown) {
 
-  if(this.frame === 10 && this.bowlsLeftInFrame === 2 && numberOfPinsKnockedDown === 10) {
+  if(this.isStrikeInTenthFrame(numberOfPinsKnockedDown)) {
     this.strike = true;
     this.bowlsLeftInFrame = 2;
     this.finalScore += 10;
@@ -38,6 +38,12 @@ Game.prototype.bowl = function(numberOfPinsKnockedDown) {
     if(this.bowlsLeftInFrame === 0) {
       this.framesLeft -= 1;
     }
+  }
+};
+
+Game.prototype.isStrikeInTenthFrame = function(numberOfPinsKnockedDown) {
+  if(this.frame === 10 && this.bowlsLeftInFrame === 2 && numberOfPinsKnockedDown === 10) {
+    return true;
   }
 };
 
