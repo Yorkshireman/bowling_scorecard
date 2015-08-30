@@ -28,6 +28,14 @@ describe("Game", function() {
       it("the current frame is 2", function() {
         expect(game.frame).toEqual(2);
       })
+
+      it("strike status is null", function() {
+        expect(game.strike).toEqual(null);
+      })
+
+      it("there are 9 frames left", function() {
+        expect(game.framesLeft).toEqual(9);
+      })
     });
   });
 
