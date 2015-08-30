@@ -6,9 +6,20 @@ describe("Game", function() {
     game = new Game();
   });
 
+  describe("when game starts", function() {
+    it('there are 10 frames left to play', function() {
+      expect(game.framesLeft).toEqual(10);
+    });
+
+    it('the game is on frame 1', function() {
+      expect(game.frame).toEqual(1);
+    });
+  });
+
   describe("when in final frame", function() {
     beforeEach(function() {
-      game.framesLeft = 1
+      game.framesLeft = 1;
+      game.frame = 10;
     });
     
     describe("with no strikes or spares left to add on", function() {

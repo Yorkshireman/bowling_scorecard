@@ -1,7 +1,8 @@
 var Game = function() {
   this.finalScore = 0;
   this.bowlsLeftInFrame = 2;
-  this.framesLeft = 1;
+  this.framesLeft = 10;
+  this.frame = 1;
 };
 
 Game.prototype.bowl = function(numberOfPinsKnockedDown) {
