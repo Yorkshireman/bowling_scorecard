@@ -37,6 +37,7 @@ Game.prototype.bowl = function(numberOfPinsKnockedDown) {
     this.bowlsLeftInFrame -= 1;
     if(this.bowlsLeftInFrame === 0) {
       this.framesLeft -= 1;
+      this.frame += 1;
     }
   }
 };

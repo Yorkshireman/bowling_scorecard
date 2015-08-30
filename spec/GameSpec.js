@@ -14,6 +14,21 @@ describe("Game", function() {
     it('the game is on frame 1', function() {
       expect(game.frame).toEqual(1);
     });
+
+    describe("when player scores a 3 and a 6", function() {
+      beforeEach(function() {
+        game.bowl(3);
+        game.bowl(6);
+      });
+
+      it("the current finalScore is 9", function() {
+        expect(game.finalScore).toEqual(9);
+      })
+
+      it("the current frame is 2", function() {
+        expect(game.frame).toEqual(2);
+      })
+    });
   });
 
   describe("when in final frame", function() {
