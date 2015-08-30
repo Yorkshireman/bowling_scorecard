@@ -15,7 +15,7 @@ Game.prototype.bowl = function(numberOfPinsKnockedDown) {
     return;
   }
 
-  if(this.frame === 11) {
+  if(this.frame === 11 && this.bowlsLeftInFrame > 0) {
     this.finalScore += numberOfPinsKnockedDown;
     this.bowlsLeftInFrame -= 1;
 

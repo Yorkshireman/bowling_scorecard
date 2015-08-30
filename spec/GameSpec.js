@@ -74,6 +74,11 @@ describe("Game", function() {
             expect(game.finalScore).toEqual(28);
           });
 
+          it("cannot score anymore points", function() {
+            game.bowl(4);
+            expect(game.finalScore).toEqual(28);
+          });
+
         })
       });
     });
