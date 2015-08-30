@@ -52,6 +52,10 @@ describe("Game", function() {
           expect(game.framesLeft).toEqual(1);
         });
 
+        it('the game is on frame 11', function() {
+          expect(game.frame).toEqual(11);
+        });
+
         it("there are two balls left to play", function() {
           expect(game.bowlsLeftInFrame).toEqual(2);
         });

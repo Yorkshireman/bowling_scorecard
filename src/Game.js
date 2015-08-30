@@ -6,9 +6,10 @@ var Game = function() {
 };
 
 Game.prototype.bowl = function(numberOfPinsKnockedDown) {
-  if(this.framesLeft === 1 && this.bowlsLeftInFrame === 2 && numberOfPinsKnockedDown === 10) {
+  if(this.frame === 10 && this.bowlsLeftInFrame === 2 && numberOfPinsKnockedDown === 10) {
     this.bowlsLeftInFrame = 2;
     this.finalScore += 10;
+    this.frame = 11
     return;
   }
 
