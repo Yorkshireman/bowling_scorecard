@@ -25,6 +25,29 @@ describe("Game", function() {
         it('there are no frames left to play', function() {
           expect(game.framesLeft).toEqual(0);
         });
+
+        it("no more balls can be played", function() {
+          game.bowl(2);
+          expect(game.finalScore).toEqual(5);
+        });
+      });
+
+      describe("when first ball bowls a strike", function() {
+        beforeEach(function() {
+          game.bowl(10);
+        });
+
+        it("there is 1 frame left to play", function() {
+          expect(game.framesLeft).toEqual(1);
+        });
+
+        it("there are two balls left to play", function() {
+          expect(game.bowlsLeftInFrame).toEqual(2);
+        });
+
+        it("the current finalScore is 10", function() {
+          expect(game.finalScore).toEqual(10);
+        });
       });
     });
   });
