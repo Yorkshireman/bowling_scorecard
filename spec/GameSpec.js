@@ -25,11 +25,11 @@ describe("Game", function() {
     describe("with no strikes or spares left to add on", function() {
       describe("when bowling a total of 5 points in that frame", function() {
         beforeEach(function() {
-          game.bowl(3)
-          game.bowl(2)
+          game.bowl(3);
+          game.bowl(2);
         });
 
-        it('the game is correctly stored', function() {
+        it('the game is correctly scored', function() {
           expect(game.finalScore).toEqual(5);
         });
 
@@ -63,6 +63,18 @@ describe("Game", function() {
         it("the current finalScore is 10", function() {
           expect(game.finalScore).toEqual(10);
         });
+
+        describe("if player then bowls a 3 and 6", function() {
+          beforeEach(function() {
+            game.bowl(3);
+            game.bowl(6);
+          });
+
+          it("the finalScore is 28", function() {
+            expect(game.finalScore).toEqual(28);
+          });
+
+        })
       });
     });
   });
