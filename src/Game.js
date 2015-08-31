@@ -1,115 +1,129 @@
 var Game = function() {
-  this.finalScore = 0;
-  this.bowlsLeftInFrame = 2;
-  this.frame = 1;
-  this.spare = null;
-  this.strike = null;
-  this.firstBall = null;
-  this.strikeBonuses = 0;
+  // this.finalScore = 0;
+  // this.bowlsLeftInFrame = 2;
+  // this.frame = 1;
+  // this.spare = null;
+  // this.strike = null;
+  // this.firstBall = null;
+  // this.strikeBonuses = 0;
+  this.scoresArray = [];
 };
 
 Game.prototype.bowl = function(score) {
-  if(this.frame > 11) {
+  if(this.scoresArray.length = 11) {
     return
   }
 
-  if(this.isSpareInTenthFrame(score)) {
-    this.spare = true;
-    this.advanceToNextFrame();
-    this.bowlsLeftInFrame = 1;
-    this.addScoreToFinalScore(score);
-    return
-  }
+  
 
-  if(this.isEleventhFrame() && this.bowlsLeftInFrame > 0) {
-    if(this.spare === true) {
-      this.addScoreToFinalScore(score);
-      this.bowlsLeftInFrame -= 1;
+  // if(this.isSpareInTenthFrame(score)) {
+  //   this.spare = true;
+  //   this.advanceToNextFrame();
+  //   this.bowlsLeftInFrame = 1;
+  //   this.addScoreToFinalScore(score);
+  //   return
+  // }
 
-      if(this.strike === true) { 
-        this.addScoreToFinalScore(score);
-      }
-    }
+  // if(this.isEleventhFrame() && this.bowlsLeftInFrame > 0) {
+  //   if(this.spare === true) {
+  //     this.addScoreToFinalScore(score);
+  //     this.bowlsLeftInFrame -= 1;
 
-    if(this.strike === true) {
-      if(this.isFirstBall()) {
-        this.finalScore += (score * 2);
-        this.advanceToNextBall();
-        return
-      }
+  //     if(this.strike === true) { 
+  //       this.addScoreToFinalScore(score);
+  //     }
+  //   }
 
-      if(this.isSecondBall()) {
-        this.finalScore += (score * 2);
-        this.advanceToNextFrame();
-        return
-      }
-    }
-  }
+  //   if(this.strike === true) {
+  //     if(this.isFirstBall()) {
+  //       this.finalScore += (score * 2);
+  //       this.advanceToNextBall();
+  //       return
+  //     }
 
-  if(this.isNotEleventhFrame()) {
+  //     if(this.isSecondBall()) {
+  //       this.finalScore += (score * 2);
+  //       this.advanceToNextFrame();
+  //       return
+  //     }
+  //   }
+  // }
+
+  // if(this.isNotEleventhFrame()) {
     
-    if(this.isFirstBall()) {
-      if(score === 10 && this.strike === true) {
-        this.finalScore += this.strikeBonuses; //20
-        this.addScoreToFinalScore(score); //30
-        this.advanceToNextFrame();
-        return
-      }
+  //   if(this.isFirstBall()) {
+  //     if(score === 10 && this.strike === true) {
+  //       this.finalScore += this.strikeBonuses; //20
+  //       this.addScoreToFinalScore(score); //30
+  //       this.advanceToNextFrame();
+  //       return
+  //     }
 
-      if(score === 10 && this.strike != true) {
-        this.finalScore += this.strikeBonuses; //0
-        this.strikeBonuses = 0;
-        this.strike = true;
-        this.addScoreToFinalScore(score); //10
-        this.strikeBonuses = score;  //strikeBonuses = 10
-        this.advanceToNextFrame();
-        return
-      }
+  //     if(score === 10 && this.strike != true) {
+  //       this.finalScore += this.strikeBonuses; //0
+  //       this.strikeBonuses = 0;
+  //       this.strike = true;
+  //       this.addScoreToFinalScore(score); //10
+  //       this.strikeBonuses = score;  //strikeBonuses = 10
+  //       this.advanceToNextFrame();
+  //       return
+  //     }
 
-      if(score != 10 && this.strike === true) {
-        this.addScoreToFinalScore(score); //39
-        this.strikeBonuses = score; //9
-        this.finalScore += this.strikeBonuses; //48
-        this.strike = null;
-        this.advanceToNextBall();
-        return
-      }
+  //     if(score != 10 && this.strike === true) {
+  //       this.addScoreToFinalScore(score);
+  //       this.strikeBonuses = score;
+  //       this.finalScore += this.strikeBonuses;
+  //       this.strike = null;
+  //       this.advanceToNextBall();
+  //       return
+  //     }
 
-      if(this.spare === true) {
-        this.finalScore += (score + this.firstBall);
-        this.spare = null;
-        this.advanceToNextBall();
-        return
-      } else {
-        this.firstBall = score;
-        this.addScoreToFinalScore(score);
-        this.advanceToNextBall();
-        return
-      }
-    }
+  //     if(this.spare === true) {
+  //       this.finalScore += (score + this.firstBall);
+  //       this.spare = null;
+  //       this.advanceToNextBall();
+  //       return
+  //     } else {
+  //       this.firstBall = score;
+  //       this.addScoreToFinalScore(score);
+  //       this.advanceToNextBall();
+  //       return
+  //     }
+  //   }
 
-    if(this.isSecondBall()) {
-      if(this.strike === true) {
-        this.finalScore += (score * 2);
-        this.strike = null;
-        this.advanceToNextFrame();
-        return
-      }
+  //   if(this.isSecondBall()) {
+  //     if(this.strike === true) {
+  //       this.finalScore += (score * 2);
+  //       this.strike = null;
+  //       this.advanceToNextFrame();
+  //       return
+  //     }
 
-      if(this.firstBall + score === 10) {
-        this.spare = true;
-        this.addScoreToFinalScore(score);
-        this.advanceToNextFrame();
-        return
-      }
-      this.finalScore += this.strikeBonuses; //57
-      this.strikeBonuses = 0;
-      this.addScoreToFinalScore(score);
-      this.advanceToNextFrame();
-      return
+  //     if(this.firstBall + score === 10) {
+  //       this.spare = true;
+  //       this.addScoreToFinalScore(score);
+  //       this.advanceToNextFrame();
+  //       return
+  //     }
+  //     this.finalScore += this.strikeBonuses; //57
+  //     this.strikeBonuses = 0;
+  //     this.addScoreToFinalScore(score);
+  //     this.advanceToNextFrame();
+  //     return
+  //   }
+  // }
+};
+
+Game.prototype.totalScore = function() {
+  var i;
+  var total = 0;
+  for(i = 0; i < this.scoresArray.length; i++) {
+    if(this.scoresArray[i] != "X" && this.scoresArray[i] != "/") {
+      total += scoresArray[i];
     }
   }
-};
+  return total;
+}
 
 Game.prototype.isSecondBall = function() {
   if(this.bowlsLeftInFrame === 1) {
