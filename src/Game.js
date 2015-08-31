@@ -61,6 +61,7 @@ Game.prototype.advanceToNextBall = function() {
 };
 
 Game.prototype.advanceToNextFrame = function() {
+  this.scoresArray[this.frame][0] = this.scoresArray[this.frame - 1][0];
   this.frame += 1;
   this.advanceToNextBall();
 };
@@ -70,7 +71,9 @@ Game.prototype.totalScore = function() {
   var i;
   for(i = 0; i < this.scoresArray.length; i++) {
     var frame = this.scoresArray[i];
-    total += frame[0];
+    if(frame[0] > total) {
+      total = frame[0]
+    }
   }
   return total;
 };

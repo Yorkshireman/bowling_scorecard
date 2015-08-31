@@ -29,18 +29,36 @@ describe("Game", function() {
       })
     });
 
-    describe("when a player scores a spare and then a 2 and a 4", function() {
+    describe("when a player scores a 3, 2 and then a 4 and a 2", function() {
       beforeEach(function() {
-        game.bowl(4);
-        game.bowl(6);
+        game.bowl(3);
         game.bowl(2);
         game.bowl(4);
+        game.bowl(2);
       });
 
-      // it("the current totalScore is 20", function() {
-      //   expect(game.totalScore()).toEqual(20);
-      // });
+      it("scoresArray is correctly marked", function() {
+        expect(game.scoresArray[0]).toEqual([5, [3, 2]]);
+        expect(game.scoresArray[1]).toEqual([11, [4, 2]]);
+      })
+
+      it("the current totalScore is 11", function() {
+        expect(game.totalScore()).toEqual(11);
+      });
     });
+
+    // describe("when a player scores a spare and then a 4 and a 2", function() {
+    //   beforeEach(function() {
+    //     game.bowl(7);
+    //     game.bowl(3);
+    //     game.bowl(4);
+    //     game.bowl(2);
+    //   });
+
+    //   it("the current totalScore is 20", function() {
+    //     expect(game.totalScore()).toEqual(20);
+    //   });
+    // });
 
     describe("when a player scores a double strike, then a 9, then a zero", function() {
       beforeEach(function() {
