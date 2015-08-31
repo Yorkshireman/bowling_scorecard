@@ -7,10 +7,6 @@ describe("Game", function() {
   });
 
   describe("when game starts", function() {
-    it('there are 10 frames left to play', function() {
-      expect(game.framesLeft).toEqual(10);
-    });
-
     it('the game is on frame 1', function() {
       expect(game.frame).toEqual(1);
     });
@@ -31,10 +27,6 @@ describe("Game", function() {
 
       it("strike status is null", function() {
         expect(game.strike).toEqual(null);
-      })
-
-      it("there are 9 frames left", function() {
-        expect(game.framesLeft).toEqual(9);
       })
     });
 
@@ -82,10 +74,6 @@ describe("Game", function() {
           expect(game.finalScore).toEqual(5);
         });
 
-        it('there are no frames left to play', function() {
-          expect(game.framesLeft).toEqual(0);
-        });
-
         it("no more balls can be played", function() {
           game.bowl(2);
           expect(game.finalScore).toEqual(5);
@@ -97,10 +85,6 @@ describe("Game", function() {
           game.bowl(6);
           game.bowl(4);
         });
-
-        it("there is 1 frame left to play", function() {
-          expect(game.framesLeft).toEqual(1);
-        })
 
         it("the game is on frame 11", function() {
           expect(game.frame).toEqual(11);
@@ -133,10 +117,6 @@ describe("Game", function() {
       describe("when first ball bowls a strike", function() {
         beforeEach(function() {
           game.bowl(10);
-        });
-
-        it("there is 1 frame left to play", function() {
-          expect(game.framesLeft).toEqual(1);
         });
 
         it('the game is on frame 11', function() {
