@@ -58,6 +58,17 @@ describe("Game", function() {
       it("the current frame is 4", function() {
         expect(game.frame).toEqual(4);
       });
+
+      describe("if player then scores a 3 and a 5", function() {
+        beforeEach(function() {
+          game.bowl(3)
+          game.bowl(5)
+        })
+
+        it("the current finalScore is 65", function() {
+          expect(game.finalScore).toEqual(65);
+        })
+      });
     });
   });
 
