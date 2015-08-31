@@ -5,6 +5,7 @@ var Game = function() {
   this.spare = null;
   this.strike = null;
   this.firstBall = null;
+  this.strikeBonuses = 0;
 };
 
 Game.prototype.bowl = function(score) {
@@ -48,15 +49,28 @@ Game.prototype.bowl = function(score) {
   if(this.isNotEleventhFrame()) {
     
     if(this.isFirstBall()) {
-      if(score === 10) {
-        this.strike = true;
-        this.addScoreToFinalScore(score); //10
+      if(score === 10 && this.strike === true) {
+        this.finalScore += this.strikeBonuses; //20
+        this.addScoreToFinalScore(score); //30
         this.advanceToNextFrame();
         return
       }
 
-      if(this.strike === true) {
-        this.finalScore += (score * 2);
+      if(score === 10 && this.strike != true) {
+        this.finalScore += this.strikeBonuses; //0
+        this.strikeBonuses = 0;
+        this.strike = true;
+        this.addScoreToFinalScore(score); //10
+        this.strikeBonuses = score;  //strikeBonuses = 10
+        this.advanceToNextFrame();
+        return
+      }
+
+      if(score != 10 && this.strike === true) {
+        this.addScoreToFinalScore(score); //39
+        this.strikeBonuses = score; //9
+        this.finalScore += this.strikeBonuses; //48
+        this.strike = null;
         this.advanceToNextBall();
         return
       }
@@ -88,6 +102,8 @@ Game.prototype.bowl = function(score) {
         this.advanceToNextFrame();
         return
       }
+      this.finalScore += this.strikeBonuses; //57
+      this.strikeBonuses = 0;
       this.addScoreToFinalScore(score);
       this.advanceToNextFrame();
       return
