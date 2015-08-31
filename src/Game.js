@@ -21,26 +21,28 @@ Game.prototype.bowl = function(score) {
     return
   }
 
-  if(this.bowlsLeftInFrame > 0 && this.isEleventhFrame() && this.spare === true) {
-    this.addScoreToFinalScore(score);
-    this.bowlsLeftInFrame -= 1;
-
-    if(this.strike === true) { 
+  if(this.isEleventhFrame() && this.bowlsLeftInFrame > 0) {
+    if(this.spare === true) {
       this.addScoreToFinalScore(score);
-    }
-  }
+      this.bowlsLeftInFrame -= 1;
 
-  if(this.isEleventhFrame() && this.strike === true) {
-    if(this.isFirstBall()) {
-      this.finalScore += (score * 2);
-      this.advanceToNextBall();
-      return
+      if(this.strike === true) { 
+        this.addScoreToFinalScore(score);
+      }
     }
 
-    if(this.isSecondBall()) {
-      this.finalScore += (score * 2);
-      this.advanceToNextFrame();
-      return
+    if(this.strike === true) {
+      if(this.isFirstBall()) {
+        this.finalScore += (score * 2);
+        this.advanceToNextBall();
+        return
+      }
+
+      if(this.isSecondBall()) {
+        this.finalScore += (score * 2);
+        this.advanceToNextFrame();
+        return
+      }
     }
   }
 

@@ -50,6 +50,19 @@ describe("Game", function() {
         expect(game.finalScore).toEqual(20);
       });
     });
+
+    describe("when a player scores a double strike, then a 9, then a zero", function() {
+      beforeEach(function() {
+        game.bowl(10);
+        game.bowl(10);
+        game.bowl(9);
+        game.bowl(0);
+      });
+
+      it("the current finalScore is 57", function() {
+        expect(game.finalScore).toEqual(57);
+      });
+    });
   });
 
   describe("when in final frame", function() {
