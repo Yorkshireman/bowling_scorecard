@@ -67,8 +67,22 @@ describe("Game", function() {
 
         it("the current finalScore is 65", function() {
           expect(game.finalScore).toEqual(65);
-        })
+        });
       });
+    });
+
+    describe("when a player scores a triple strike, then a 0, then a 9", function() {
+      beforeEach(function() {
+        game.bowl(10);
+        game.bowl(10);
+        game.bowl(10);
+        game.bowl(0);
+        game.bowl(9);
+      });
+
+      it("the current finalScore is 78", function() {
+        expect(game.finalScore).toEqual(78);
+      })
     });
   });
 
