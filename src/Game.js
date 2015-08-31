@@ -113,9 +113,7 @@ Game.prototype.advanceToNextBall = function() {
 
 Game.prototype.advanceToNextFrame = function() {
   this.frame += 1;
-  if(this.bowlsLeftInFrame === 1) {
-    this.bowlsLeftInFrame = 2;
-  }
+  this.bowlsLeftInFrame = 2;
 }
 
 Game.prototype.isEleventhFrame = function() {
