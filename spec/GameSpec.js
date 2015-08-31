@@ -6,6 +6,20 @@ describe("Game", function() {
     game = new Game();
   });
 
+  describe("previousBallIndex", function() {
+    it("returns correct index for previous ball", function() {
+      game.bowl(3)
+      expect(game.previousBallIndex()).toEqual(0);
+    })
+  })
+
+  describe("previousBallScore", function() {
+    it("returns correct score for previous ball", function() {
+      game.bowl(3)
+      expect(game.previousBallScore()).toEqual(3);
+    })
+  })
+
   describe("when game starts", function() {
     describe("when player scores a 3 and a 6", function() {
       beforeEach(function() {
@@ -14,9 +28,20 @@ describe("Game", function() {
       });
 
       it("the current totalScore is 9", function() {
-        expect(game.totalScore).toEqual(9);
+        expect(game.totalScore()).toEqual(9);
       })
     });
+
+    describe("when player scores a 4 and a 6", function() {
+      beforeEach(function() {
+        game.bowl(4);
+        game.bowl(6);
+      });
+
+      it("scoresArray is correctly marked", function() {
+        expect(game.scoresArray).toEqual([4, "/"]);
+      })
+    })
 
     describe("when a player scores a spare and then a 2 and a 4", function() {
       beforeEach(function() {
@@ -27,7 +52,7 @@ describe("Game", function() {
       });
 
       it("the current totalScore is 20", function() {
-        expect(game.totalScore).toEqual(20);
+        expect(game.totalScore()).toEqual(20);
       });
     });
 
@@ -40,7 +65,7 @@ describe("Game", function() {
       });
 
       it("the current totalScore is 57", function() {
-        expect(game.totalScore).toEqual(57);
+        expect(game.totalScore()).toEqual(57);
       });
 
       describe("if player then scores a 3 and a 5", function() {
@@ -50,7 +75,7 @@ describe("Game", function() {
         })
 
         it("the current totalScore is 65", function() {
-          expect(game.totalScore).toEqual(65);
+          expect(game.totalScore()).toEqual(65);
         });
       });
     });
@@ -65,7 +90,7 @@ describe("Game", function() {
       });
 
       it("the current totalScore is 78", function() {
-        expect(game.totalScore).toEqual(78);
+        expect(game.totalScore()).toEqual(78);
       })
     });
   });
