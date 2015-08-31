@@ -14,7 +14,7 @@ describe("Game", function() {
       });
 
       it("the current totalScore is 9", function() {
-        expect(game.scoresArray).toEqual([3, 6]);
+        expect(game.totalScore).toEqual(9);
       })
     });
 
