@@ -3,7 +3,9 @@ var Game = function() {
   this.bowlsLeftInFrame = 2;
   this.framesLeft = 10;
   this.frame = 1;
+  this.spare = null;
   this.strike = null;
+  this.firstBall = null;
 };
 
 Game.prototype.bowl = function(numberOfPinsKnockedDown) {
@@ -32,13 +34,29 @@ Game.prototype.bowl = function(numberOfPinsKnockedDown) {
     }
   }
 
-  if(this.bowlsLeftInFrame > 0 && this.frame != 11) {
-    this.finalScore += numberOfPinsKnockedDown;
-    this.bowlsLeftInFrame -= 1;
-    if(this.bowlsLeftInFrame === 0) {
-      this.framesLeft -= 1;
-      this.frame += 1;
+  if(this.bowlsLeftInFrame === 1 && this.frame < 11) {
+    if(this.firstBall + numberOfPinsKnockedDown === 10) {
+      this.spare = true;
     }
+
+    this.finalScore += numberOfPinsKnockedDown;
+    this.framesLeft -= 1;
+    this.frame += 1;
+    this.bowlsLeftInFrame = 2;
+    return
+  }
+  
+  if(this.bowlsLeftInFrame === 2 && this.frame != 11) {
+    this.firstBall = numberOfPinsKnockedDown;
+
+    if(this.spare === true) {
+      this.finalScore += (numberOfPinsKnockedDown + this.firstBall * 2);
+      this.spare = null;
+    } else {
+      this.finalScore += numberOfPinsKnockedDown;
+    }
+
+    this.bowlsLeftInFrame -= 1;
   }
 };
 

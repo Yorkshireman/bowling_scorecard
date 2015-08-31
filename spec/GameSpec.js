@@ -37,6 +37,19 @@ describe("Game", function() {
         expect(game.framesLeft).toEqual(9);
       })
     });
+
+    describe("when a player scores a spare and then a 2 and a 4", function() {
+      beforeEach(function() {
+        game.bowl(4);
+        game.bowl(6);
+        game.bowl(2);
+        game.bowl(4);
+      });
+
+      it("the current finalScore is 20", function() {
+        expect(game.finalScore).toEqual(20);
+      });
+    });
   });
 
   describe("when in final frame", function() {
