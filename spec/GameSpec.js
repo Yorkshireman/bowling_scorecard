@@ -6,20 +6,6 @@ describe("Game", function() {
     game = new Game();
   });
 
-  describe("previousBallIndex", function() {
-    it("returns correct index for previous ball", function() {
-      game.bowl(3)
-      expect(game.previousBallIndex()).toEqual(0);
-    })
-  })
-
-  describe("previousBallScore", function() {
-    it("returns correct score for previous ball", function() {
-      game.bowl(3)
-      expect(game.previousBallScore()).toEqual(3);
-    })
-  })
-
   describe("when game starts", function() {
     describe("when player scores a 3 and a 6", function() {
       beforeEach(function() {
@@ -27,7 +13,7 @@ describe("Game", function() {
         game.bowl(6);
       });
 
-      it("the current totalScore is 9", function() {
+      it("the currentScore is 9", function() {
         expect(game.totalScore()).toEqual(9);
       })
     });
@@ -39,9 +25,9 @@ describe("Game", function() {
       });
 
       it("scoresArray is correctly marked", function() {
-        expect(game.scoresArray).toEqual([4, "/"]);
+        expect(game.scoresArray[0]).toEqual([10, [4, "/"]]);
       })
-    })
+    });
 
     describe("when a player scores a spare and then a 2 and a 4", function() {
       beforeEach(function() {
@@ -51,9 +37,9 @@ describe("Game", function() {
         game.bowl(4);
       });
 
-      it("the current totalScore is 20", function() {
-        expect(game.totalScore()).toEqual(20);
-      });
+      // it("the current totalScore is 20", function() {
+      //   expect(game.totalScore()).toEqual(20);
+      // });
     });
 
     describe("when a player scores a double strike, then a 9, then a zero", function() {
@@ -64,9 +50,9 @@ describe("Game", function() {
         game.bowl(0);
       });
 
-      it("the current totalScore is 57", function() {
-        expect(game.totalScore()).toEqual(57);
-      });
+      // it("the currentScore is 57", function() {
+      //   expect(game.currentScore).toEqual(57);
+      // });
 
       describe("if player then scores a 3 and a 5", function() {
         beforeEach(function() {
@@ -74,9 +60,9 @@ describe("Game", function() {
           game.bowl(5)
         })
 
-        it("the current totalScore is 65", function() {
-          expect(game.totalScore()).toEqual(65);
-        });
+        // it("the currentScore is 65", function() {
+        //   expect(game.currentScore).toEqual(65);
+        // });
       });
     });
 
@@ -89,9 +75,9 @@ describe("Game", function() {
         game.bowl(9);
       });
 
-      it("the current totalScore is 78", function() {
-        expect(game.totalScore()).toEqual(78);
-      })
+      // it("the currentScore is 78", function() {
+      //   expect(game.currentScore).toEqual(78);
+      // })
     });
   });
 
