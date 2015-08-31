@@ -152,10 +152,8 @@ describe("Game", function() {
             game.bowl(4);
             expect(game.finalScore).toEqual(28);
           });
-
         })
       });
     });
   });
-
 });

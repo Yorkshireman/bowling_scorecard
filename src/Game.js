@@ -8,60 +8,135 @@ var Game = function() {
   this.firstBall = null;
 };
 
-Game.prototype.bowl = function(numberOfPinsKnockedDown) {
-
-  if(this.isStrikeInTenthFrame(numberOfPinsKnockedDown)) {
-    this.strike = true;
-    this.bowlsLeftInFrame = 2;
-    this.finalScore += 10;
-    this.frame = 11
-    return;
-  }
-
-  if(this.isSpareInTenthFrame(numberOfPinsKnockedDown)) {
-    this.frame = 11;
-    this.bowlsLeftInFrame = 1;
-    this.finalScore += numberOfPinsKnockedDown;
+Game.prototype.bowl = function(score) {
+  if(this.frame > 11) {
     return
   }
 
-  if(this.frame === 11 && this.bowlsLeftInFrame > 0) {
-    this.finalScore += numberOfPinsKnockedDown;
+  if(this.isSpareInTenthFrame(score)) {
+    this.spare = true;
+    this.advanceToNextFrame();
+    this.bowlsLeftInFrame = 1;
+    this.addScoreToFinalScore(score);
+    return
+  }
+
+  if(this.bowlsLeftInFrame > 0 && this.isEleventhFrame() && this.spare === true) {
+    this.addScoreToFinalScore(score);
     this.bowlsLeftInFrame -= 1;
 
     if(this.strike === true) { 
-      this.finalScore += numberOfPinsKnockedDown;
+      this.addScoreToFinalScore(score);
     }
   }
 
-  if(this.bowlsLeftInFrame === 1 && this.frame < 11) {
-    if(this.firstBall + numberOfPinsKnockedDown === 10) {
-      this.spare = true;
+  if(this.isEleventhFrame() && this.strike === true) {
+    if(this.isFirstBall()) {
+      this.finalScore += (score * 2);
+      this.advanceToNextBall();
+      return
     }
 
-    this.finalScore += numberOfPinsKnockedDown;
-    this.framesLeft -= 1;
-    this.frame += 1;
-    this.bowlsLeftInFrame = 2;
-    return
+    if(this.isSecondBall()) {
+      this.finalScore += (score * 2);
+      this.advanceToNextFrame();
+      return
+    }
   }
-  
-  if(this.bowlsLeftInFrame === 2 && this.frame != 11) {
-    this.firstBall = numberOfPinsKnockedDown;
 
-    if(this.spare === true) {
-      this.finalScore += (numberOfPinsKnockedDown + this.firstBall * 2);
-      this.spare = null;
-    } else {
-      this.finalScore += numberOfPinsKnockedDown;
+  if(this.isNotEleventhFrame()) {
+    
+    if(this.isFirstBall()) {
+      if(score === 10) {
+        this.strike = true;
+        this.addScoreToFinalScore(score);
+        this.advanceToNextFrame();
+        return
+      }
+
+      if(this.strike === true) {
+        this.finalScore += (score * 2);
+        this.advanceToNextBall();
+        return
+      }
+
+      if(this.spare === true) {
+        this.finalScore += (score + this.firstBall);
+        this.spare = null;
+        this.advanceToNextBall();
+        return
+      } else {
+        this.firstBall = score;
+        this.addScoreToFinalScore(score);
+        this.advanceToNextBall();
+        return
+      }
     }
 
-    this.bowlsLeftInFrame -= 1;
+    if(this.isSecondBall()) {
+      if(this.strike === true) {
+        this.finalScore += (score * 2);
+        this.strike = null;
+        this.advanceToNextFrame();
+        return
+      }
+
+      if(this.firstBall + score === 10) {
+        this.spare = true;
+        this.addScoreToFinalScore(score);
+        this.framesLeft -= 1;
+        this.advanceToNextFrame();
+        return
+      }
+      this.addScoreToFinalScore(score);
+      this.framesLeft -= 1;
+      this.advanceToNextFrame();
+      return
+    }
   }
 };
 
-Game.prototype.isStrikeInTenthFrame = function(numberOfPinsKnockedDown) {
-  if(this.frame === 10 && this.bowlsLeftInFrame === 2 && numberOfPinsKnockedDown === 10) {
+Game.prototype.isSecondBall = function() {
+  if(this.bowlsLeftInFrame === 1) {
+    return true;
+  };
+}
+
+Game.prototype.isFirstBall = function() {
+  if(this.bowlsLeftInFrame === 2) {
+    return true;
+  };
+}
+
+Game.prototype.advanceToNextBall = function() {
+  this.bowlsLeftInFrame -= 1;
+}
+
+Game.prototype.advanceToNextFrame = function() {
+  this.frame += 1;
+  if(this.bowlsLeftInFrame === 1) {
+    this.bowlsLeftInFrame = 2;
+  }
+}
+
+Game.prototype.isEleventhFrame = function() {
+  if(this.frame === 11) {
+    return true;
+  };
+};
+
+Game.prototype.isNotEleventhFrame = function() {
+  if(this.frame != 11) {
+    return true;
+  };
+};
+
+Game.prototype.addScoreToFinalScore = function(score) {
+  this.finalScore += score;
+};
+
+Game.prototype.isStrikeInTenthFrame = function(score) {
+  if(this.frame === 10 && this.bowlsLeftInFrame === 2 && score === 10) {
     return true;
   }
 };
