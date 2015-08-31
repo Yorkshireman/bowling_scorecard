@@ -54,6 +54,10 @@ describe("Game", function() {
       it("the current finalScore is 57", function() {
         expect(game.finalScore).toEqual(57);
       });
+
+      it("the current frame is 4", function() {
+        expect(game.frame).toEqual(4);
+      });
     });
   });
 
