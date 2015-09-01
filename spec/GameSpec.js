@@ -60,9 +60,9 @@ describe("Game", function() {
         expect(game.scoresArray[1]).toEqual([20, [4, 2]]);
       });
 
-      // it("the current totalScore is 20", function() {
-      //   expect(game.totalScore()).toEqual(20);
-      // });
+      it("the current totalScore is 20", function() {
+        expect(game.totalScore()).toEqual(20);
+      });
     });
 
     describe("when a player scores a double strike, then a 9, then a zero", function() {
