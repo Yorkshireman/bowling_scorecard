@@ -6,34 +6,60 @@ var Game = function() {
 
 Game.prototype.bowl = function(score) {
   if(this.isSpare(score)) {
-    this.scoresArray[this.frame - 1][0] += score
-    this.scoresArray[this.frame - 1][1][1] = "/"
+    this.addScoreToFrameTotal(score);
+    this.markSpareOnFrame();
     this.advanceToNextFrame();
     return
   }
 
   if(this.isFirstBall()) {
-    this.scoresArray[this.frame - 1][1][0] = score;
-    this.scoresArray[this.frame - 1][0] += score;
-    if(this.frame > 1 && this.scoresArray[this.frame - 2][1][1] === "/") {
-      this.scoresArray[this.frame - 2][0] += score;
-      this.scoresArray[this.frame - 1][0] += score;
+    this.addScoreToFrame(score);
+    this.addScoreToFrameTotal(score);
+
+    if(this.isSpareBonusToBeApplied()) {
+      this.addThisScoreToPreviousFrameTotal(score);
+      this.addScoreToFrameTotal(score);
     };
+
     this.advanceToNextBall();
     return
   }
 
   if(this.isSecondBall()) {
-    this.scoresArray[this.frame - 1][1][1] = score;
-    this.scoresArray[this.frame - 1][0] += score;
+    this.addScoreToFrame(score);
+    this.addScoreToFrameTotal(score);
     this.advanceToNextFrame();
   }
 };
+
+Game.prototype.markSpareOnFrame = function() {
+  this.scoresArray[this.frame - 1][1][1] = "/"
+}
+
+Game.prototype.addScoreToFrameTotal = function(score) {
+  this.scoresArray[this.frame - 1][0] += score;
+}
+
+Game.prototype.addScoreToFrame = function(score) {
+  if(this.isFirstBall()) {
+    this.scoresArray[this.frame - 1][1][0] = score;
+  } else if(this.isSecondBall()) {
+    this.scoresArray[this.frame - 1][1][1] = score;
+  }
+}
+
+Game.prototype.addThisScoreToPreviousFrameTotal = function(score) {
+  this.scoresArray[this.frame - 2][0] += score;
+}
 
 Game.prototype.isSpare = function(score) {
   if(this.isSecondBall() && (score + this.previousBallSameFrameScore() === 10)) {
     return true
   }
+}
+
+Game.prototype.isSpareBonusToBeApplied = function() {
+  return (this.frame > 1 && this.scoresArray[this.frame - 2][1][1] === "/");
 }
 
 Game.prototype.previousBallSameFrameScore = function() {
