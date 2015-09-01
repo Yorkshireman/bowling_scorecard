@@ -15,6 +15,10 @@ Game.prototype.bowl = function(score) {
   if(this.isFirstBall()) {
     this.scoresArray[this.frame - 1][1][0] = score;
     this.scoresArray[this.frame - 1][0] += score;
+    if(this.frame > 1 && this.scoresArray[this.frame - 2][1][1] === "/") {
+      this.scoresArray[this.frame - 2][0] += score;
+      this.scoresArray[this.frame - 1][0] += score;
+    };
     this.advanceToNextBall();
     return
   }
