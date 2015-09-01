@@ -1,6 +1,6 @@
 var Game = function() {
   this.scoresArray = [[0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], [0, [0, 0]], ]
-  this.frame = 1;
+  this.frame = 0;
   this.ball = 1;
 };
 
@@ -32,24 +32,36 @@ Game.prototype.bowl = function(score) {
   }
 };
 
+Game.prototype.currentFrame = function() {
+  return this.frame;
+}
+
+Game.prototype.previousFrame = function() {
+  return this.frame - 1;
+}
+
+Game.prototype.nextFrame = function() {
+  return this.frame + 1;
+}
+
 Game.prototype.markSpareOnFrame = function() {
-  this.scoresArray[this.frame - 1][1][1] = "/"
+  this.scoresArray[this.currentFrame()][1][1] = "/"
 }
 
 Game.prototype.addScoreToFrameTotal = function(score) {
-  this.scoresArray[this.frame - 1][0] += score;
+  this.scoresArray[this.currentFrame()][0] += score;
 }
 
 Game.prototype.addScoreToFrame = function(score) {
   if(this.isFirstBall()) {
-    this.scoresArray[this.frame - 1][1][0] = score;
+    this.scoresArray[this.currentFrame()][1][0] = score;
   } else if(this.isSecondBall()) {
-    this.scoresArray[this.frame - 1][1][1] = score;
+    this.scoresArray[this.currentFrame()][1][1] = score;
   }
 }
 
 Game.prototype.addThisScoreToPreviousFrameTotal = function(score) {
-  this.scoresArray[this.frame - 2][0] += score;
+  this.scoresArray[this.previousFrame()][0] += score;
 }
 
 Game.prototype.isSpare = function(score) {
@@ -59,11 +71,11 @@ Game.prototype.isSpare = function(score) {
 }
 
 Game.prototype.isSpareBonusToBeApplied = function() {
-  return (this.frame > 1 && this.scoresArray[this.frame - 2][1][1] === "/");
+  return (this.nextFrame() > 1 && this.scoresArray[this.previousFrame()][1][1] === "/");
 }
 
 Game.prototype.previousBallSameFrameScore = function() {
-  return this.scoresArray[this.frame - 1][1][0];
+  return this.scoresArray[this.currentFrame()][1][0];
 }
 
 Game.prototype.isFirstBall = function() {
@@ -83,7 +95,7 @@ Game.prototype.advanceToNextBall = function() {
 };
 
 Game.prototype.advanceToNextFrame = function() {
-  this.scoresArray[this.frame][0] = this.scoresArray[this.frame - 1][0];
+  this.scoresArray[this.nextFrame()][0] = this.scoresArray[this.currentFrame()][0];
   this.frame += 1;
   this.advanceToNextBall();
 };

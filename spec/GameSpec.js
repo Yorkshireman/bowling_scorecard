@@ -65,18 +65,18 @@ describe("Game", function() {
       });
     });
 
-    describe("when player scores a strike, then a 3, 6", function() {
-      beforeEach(function() {
-        game.bowl(10)
-        game.bowl(3)
-        game.bowl(6)
-      });
+    // describe("when player scores a strike, then a 3, 6", function() {
+    //   beforeEach(function() {
+    //     game.bowl(10)
+    //     game.bowl(3)
+    //     game.bowl(6)
+    //   });
 
-      it("scoresArray should be correctly marked", function() {
-        expect(game.scoresArray[0]).toEqual([19, ["X", 0]]);
-        expect(game.scoresArray[1]).toEqual([28, [3, 6]]);
-      });
-    });
+    //   it("scoresArray should be correctly marked", function() {
+    //     expect(game.scoresArray[0]).toEqual([19, ["X", 0]]);
+    //     expect(game.scoresArray[1]).toEqual([28, [3, 6]]);
+    //   });
+    // });
 
     // describe("when a player scores a double strike, then a 9, then a zero", function() {
     //   beforeEach(function() {
