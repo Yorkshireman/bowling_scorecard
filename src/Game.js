@@ -66,14 +66,6 @@ Game.prototype.previousBallSameFrameScore = function() {
   return this.scoresArray[this.frame - 1][1][0];
 }
 
-// Game.prototype.currentBallIndex = function() {
-//   return this.scoresArray.length + 1;
-// }
-
-// Game.prototype.previousBallIndex = function() {
-//   return this.scoresArray.length - 1;
-// }
-
 Game.prototype.isFirstBall = function() {
   return this.ball === 1;
 };
