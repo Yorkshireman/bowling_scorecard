@@ -6,7 +6,7 @@ describe("Game", function() {
     game = new Game();
   });
 
-  describe("when game starts", function() {
+  describe("In the first frame", function() {
     describe("when player scores a 3 and a 6", function() {
       beforeEach(function() {
         game.bowl(3);
@@ -65,43 +65,56 @@ describe("Game", function() {
       });
     });
 
-    describe("when a player scores a double strike, then a 9, then a zero", function() {
+    describe("when player scores a strike, then a 3, 6", function() {
       beforeEach(function() {
-        game.bowl(10);
-        game.bowl(10);
-        game.bowl(9);
-        game.bowl(0);
+        game.bowl(10)
+        game.bowl(3)
+        game.bowl(6)
       });
+
+      it("scoresArray should be correctly marked", function() {
+        expect(game.scoresArray[0]).toEqual([19, ["X", 0]]);
+        expect(game.scoresArray[1]).toEqual([28, [3, 6]]);
+      });
+    });
+
+    // describe("when a player scores a double strike, then a 9, then a zero", function() {
+    //   beforeEach(function() {
+    //     game.bowl(10);
+    //     game.bowl(10);
+    //     game.bowl(9);
+    //     game.bowl(0);
+    //   });
 
       // it("the currentScore is 57", function() {
       //   expect(game.currentScore).toEqual(57);
       // });
 
-      describe("if player then scores a 3 and a 5", function() {
-        beforeEach(function() {
-          game.bowl(3)
-          game.bowl(5)
-        })
+      // describe("if player then scores a 3 and a 5", function() {
+      //   beforeEach(function() {
+      //     game.bowl(3)
+      //     game.bowl(5)
+      //   })
 
         // it("the currentScore is 65", function() {
         //   expect(game.currentScore).toEqual(65);
         // });
-      });
-    });
+    //   });
+    // });
 
-    describe("when a player scores a triple strike, then a 0, then a 9", function() {
-      beforeEach(function() {
-        game.bowl(10);
-        game.bowl(10);
-        game.bowl(10);
-        game.bowl(0);
-        game.bowl(9);
-      });
+    // describe("when a player scores a triple strike, then a 0, then a 9", function() {
+    //   beforeEach(function() {
+    //     game.bowl(10);
+    //     game.bowl(10);
+    //     game.bowl(10);
+    //     game.bowl(0);
+    //     game.bowl(9);
+    //   });
 
-      // it("the currentScore is 78", function() {
-      //   expect(game.currentScore).toEqual(78);
-      // })
-    });
+    //   // it("the currentScore is 78", function() {
+    //   //   expect(game.currentScore).toEqual(78);
+    //   // })
+    // });
   });
 
   // describe("when in tenth frame", function() {
